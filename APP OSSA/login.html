@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ossa Travel - Iniciar Sesión</title>
+    <link rel="icon" type="image/jpeg" href="img/Logo Ossa2.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0148A7 0%, #0056C7 50%, #0066E7 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(1, 72, 167, 0.3);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #0148A7, #00C851, #0148A7);
+        }
+
+        .header-logos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+        
+        .ossa-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(8, 5, 238, 0.3);
+            overflow: hidden; 
+             border: 1px solid rgba(255, 255, 255, 0.5);
+            flex-shrink: 0;
+            background: white;
+        }   
+
+        .ossa-logo img {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+        }
+
+        /* --- INICIO DE CAMBIOS PARA EL LOGO DE AUTOMAT EN EL HEADER --- */
+        .automat-logo-container { /* Nuevo contenedor para el logo de Automat */
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 200, 81, 0.2); /* Sombra con color de Automat */
+            overflow: hidden;
+            background: linear-gradient(135deg, #00C851, #00A040); /* Fondo degradado de Automat */
+            opacity: 0.9; /* Un poco de opacidad para que no compita tanto con Ossa */
+        }
+        .automat-logo-container img {
+            width: 110%; /* Ajusta el tamaño del icono dentro del círculo */
+            height: 110%;
+            object-fit: contain; /* Para que el robot se vea completo y no se recorte */
+        }
+        /* --- FIN DE CAMBIOS PARA EL LOGO DE AUTOMAT EN EL HEADER --- */
+
+
+        /* Se eliminan las reglas .automat-logo, .robot-icon, .automat-text ya que se reemplazaron */
+        /*
+        .automat-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            opacity: 0.8;
+        }
+        .robot-icon {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #00C851, #00A040);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+        .automat-text {
+            color: #666;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        */
+
+        .login-title {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .login-title h1 {
+            color: #0148A7;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .login-title p {
+            color: #666;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .welcome-text {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: #0148A7;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 18px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0148A7;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(1, 72, 167, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-bottom: 25px;
+        }
+
+        .forgot-password a {
+            color: #0148A7;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password a:hover {
+            color: #0056C7;
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            background: linear-gradient(135deg, #0148A7, #0056C7);
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(1, 72, 167, 0.3);
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(1, 72, 167, 0.4);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5e9;
+        }
+
+        .divider span {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 0 15px;
+        }
+
+        .social-login {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #e1e5e9;
+            text-decoration: none;
+            color: #444;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            gap: 12px;
+        }
+        
+        .social-btn:hover {
+            background-color: #f7f9fa;
+            border-color: #d1d9e0;
+        }
+
+        .social-btn img {
+            width: 22px;
+            height: 22px;
+        }
+
+        .powered-by {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e5e9;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .powered-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .powered-logos .small-logo {
+            width: 24px;
+            height: 24px;
+            opacity: 0.7;
+        }
+
+        .error-message {
+            background: #ffe6e6;
+            border: 1px solid #ff9999;
+            color: #cc0000;
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 20px;
+                padding: 30px 25px;
+            }
+            
+            .header-logos {
+                flex-direction: column;
+                gap: 15px;
+                margin-bottom: 25px;
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="header-logos">
+            <div class="ossa-logo floating">
+                <img src="img/Logo Ossa2.png" alt="Logo de Ossa Travel">
+            </div>
+
+            <div class="automat-logo-container floating">
+                <img src="img/Logo Automat.png" alt="Logo de AUTOMAT">
+            </div>
+            </div>
+
+        <div class="login-title">
+            <h1>¡Bienvenido!</h1>
+         <p><b>Viaje seguro con los expertos</b></p>  
+        </div>
+
+        <div class="welcome-text">
+            Inicia sesión para acceder a tu experiencia personalizada de viajes
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            Usuario o contraseña incorrectos
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="tu@email.com"
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="••••••••"
+                    required
+                >
+            </div>
+
+            <div class="forgot-password">
+                <a href="#" onclick="showForgotPassword()">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="login-button">
+                Iniciar Sesión
+            </button>
+        </form>
+
+        <div class="divider">
+            <span>o</span>
+        </div>
+
+        <div class="social-login">
+            <a href="#" class="social-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Logo de Google">
+                <span>Continuar con Google</span>
+            </a>
+            <a href="#" class="social-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Logo de Microsoft">
+                <span>Continuar con Microsoft</span>
+            </a>
+        </div>
+
+        <div class="powered-by">
+            Desarrollado por
+            <div class="powered-logos">
+                <div class="robot-icon small-logo">🤖</div>
+                <span style="color: #00C851; font-weight: 600;">AUTOMAT</span>
+                <span>para</span>
+                <span style="color: #0148A7; font-weight: 600;">OSSA Y ASOCIADOS</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            if (email === 'demo@ossa.com' && password === '123456') {
+                alert('¡Login exitoso! Redirigiendo al Dashboard...');
+            } else {
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+        function showForgotPassword() {
+            alert('Función de recuperación de contraseña\n\nIngresa tu email y te enviaremos un enlace para restablecer tu contraseña.');
+        }
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentNode.style.transform = 'scale(1.02)';
+                this.parentNode.style.transition = 'transform 0.2s ease';
+            });
+            input.addEventListener('blur', function() {
+                this.parentNode.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
